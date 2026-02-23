@@ -1,0 +1,15 @@
+Next Js:
+
+A react framework that contains own routing and other tools, it runs on node.js. It is server side rendering.
+With next js, we can pre render certain pages and components that have static data while building the application(Static site generation). Helps building fast and search engine friendly application.
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------
