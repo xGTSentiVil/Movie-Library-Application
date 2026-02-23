@@ -1,24 +1,67 @@
-import MovieCard from '../components/MovieCard';
-import MobiePageStyle from './MoviesPage.module.css'
+import MovieCard from "../components/MovieCard";
+import MobiePageStyle from "./MoviesPage.module.css";
 
-export default function MoviesPage() {
-  return (
-    <main className={MobiePageStyle.movieCardsPage}>        
+type MoviesPageProps = {
+  searchParams: Promise<{ movie?: string }>
+};
 
+export default async function MoviesPage({ searchParams }: MoviesPageProps) {
+  const params = await searchParams;
+  const searchMovie = params.movie;
+
+  let data = null;
+
+  if (searchMovie) {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/movies?movie=${searchMovie}`,
+        { cache: "no-store" }
+      );
+      data = await response.json();
+      console.log("Data received from backend:", data);
+    } catch (error) {
+      console.error("Something went wrong:", error);
+    }
+  }
+
+    return (
+    <main className={MobiePageStyle.movieCardsPage}>
+      {data?.results?.map((movie: any) => (
+        <MovieCard
+          key={movie.id}
+          title={movie.title}
+          rating={movie.vote_average}
+          voters={movie.vote_count}
+          imageSrc={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : "/Images/no-image.png" // fallback image
+          }
+        />
+      ))}
     </main>
   );
+
+
 }
 
-    //   <MovieCard
-    //     title="The Shawshank Redemption"
-    //     rating={9.1}
-    //     voters={2800000}
-    //     imageSrc="/Images/ShawshankRedemption.jpg"
-    //   />
-    //   <MovieCard
-    //     title="12 Angry Men"
-    //     rating={9.5}
-    //     voters={28000000};
-    //     imageSrc="/Images/TAM.jpg"
-    //   />
 
+
+
+
+  // return (
+  //   <main className={MobiePageStyle.movieCardsPage}>
+  //     <MovieCard
+  //       title="The Shawshank Redemption"
+  //       rating={9.1}
+  //       voters={2800000}
+  //       imageSrc="/Images/ShawshankRedemption.jpg"
+  //     />
+  //     <MovieCard
+  //       title="12 Angry Men"
+  //       rating={9.5}
+  //       voters={28000000}
+  //       imageSrc="/Images/TAM.jpg"
+  //     />
+  //   </main>
+  // );
