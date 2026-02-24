@@ -1,0 +1,21 @@
+{
+  "watchlist": [],
+  "collections": [
+    {
+      "id": "uuid-1",
+      "name": "Friday Night Chills",
+      "movieIds": [
+        550,
+        120
+      ]
+    }
+  ],
+  "personalData": [
+    {
+      "tmdbId": 550,
+      "rating": 5,
+      "review": "Masterpiece!",
+      "id": "54a6"
+    }
+  ]
+}

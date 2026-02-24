@@ -29,9 +29,11 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
       {data?.results?.map((movie: any) => (
         <MovieCard
           key={movie.id}
+          id = {String(movie.id)}
           title={movie.title}
           rating={movie.vote_average}
           voters={movie.vote_count}
+          desc={movie.overview}
           imageSrc={
             movie.poster_path
               ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`

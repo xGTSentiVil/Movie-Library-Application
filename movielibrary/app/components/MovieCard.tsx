@@ -5,17 +5,21 @@ import { useState } from 'react';
 import styles from './MovieCard.module.css';
 
 type MovieCardProps = {
+  id : string;
   title: string;
   rating: number;
   voters: number;
+  desc : string;
   imageSrc: string;
   imageAlt?: string;
 };
 
 export default function MovieCard({
+  id,
   title,
   rating,
   voters,
+  desc,
   imageSrc,
   imageAlt = 'Movie poster',
 }: MovieCardProps) {
@@ -40,7 +44,22 @@ export default function MovieCard({
 
         <button
           className={`${styles.watchLaterBtn} ${watchLater ? styles.active : ''}`}
-          onClick={() => setWatchLater(!watchLater)}
+          onClick={async () => {
+            if (!watchLater) {
+              await addWatchLater({
+                id,
+                title,
+                rating,
+                voters,
+                desc,
+                imageSrc,
+                imageAlt,
+              });
+            } else {
+              await removeWatchLater(id); 
+            }
+            setWatchLater(!watchLater);
+          }}
           title={watchLater ? 'Remove from Watch Later' : 'Add to Watch Later'}
         >
           {watchLater ? '✓' : '+'}
@@ -76,3 +95,21 @@ function formatVoters(n: number): string {
   if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
   return n.toString();
 }
+
+const addWatchLater = async (movie: MovieCardProps) => {
+  await fetch("http://localhost:4000/watchlist", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(movie)
+  });
+  console.log(movie)
+}
+
+
+const removeWatchLater = async (id: string) => {
+  await fetch(`http://localhost:4000/watchlist/${id}`, {
+    method: "DELETE",
+  });
+};
