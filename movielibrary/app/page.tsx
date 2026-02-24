@@ -17,6 +17,10 @@ export default function Home() {
     router.push(`/movies?movie=${encodeURIComponent(inputValue)}`);
   };
 
+  const myLibLoad = () => {     
+    router.push(`mylibrary`);
+  }
+
   return (
     <main className={styles.mainContainer}>  
       <div className={styles.backgroundWrapper}>  
@@ -32,7 +36,7 @@ export default function Home() {
       <div className={styles.overlay} />
 
       <div className={styles.myLib}>
-        <button onClick={handleAction}>My Library</button>
+        <button onClick={myLibLoad}>My Library</button>
       </div>
 
       <div className={styles.srchBar}>

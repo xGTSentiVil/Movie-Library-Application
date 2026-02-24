@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from './MovieCard.module.css';
+import Link from "next/link";
 
 type MovieCardProps = {
   id : string;
@@ -25,56 +26,59 @@ export default function MovieCard({
 }: MovieCardProps) {
   const [watchLater, setWatchLater] = useState(false);
 
-  const fullStars = Math.floor(rating / 2);
-  const hasHalf = rating / 2 - fullStars >= 0.5;
+  const safeRating = rating ?? 0;
+  const fullStars = Math.floor(safeRating / 2);
+  const hasHalf = safeRating / 2 - fullStars >= 0.5;
 
   return (
     <div className={styles.card}>
-      <div className={styles.posterWrapper}>
-        <div className={styles.imageContainer}>
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            sizes="(max-width: 768px) 100vw, 240px"
-            style={{ objectFit: 'cover' }}
-            priority
-          />
-        </div>
+        <div className={styles.posterWrapper}>
+          <Link href={`/movies/${id}`} className={styles.imageContainer}>
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              sizes="(max-width: 768px) 100vw, 240px"
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+          </Link>
 
-        <button
-          className={`${styles.watchLaterBtn} ${watchLater ? styles.active : ''}`}
-          onClick={async () => {
-            if (!watchLater) {
-              await addWatchLater({
-                id,
-                title,
-                rating,
-                voters,
-                desc,
-                imageSrc,
-                imageAlt,
-              });
-            } else {
-              await removeWatchLater(id); 
-            }
-            setWatchLater(!watchLater);
-          }}
-          title={watchLater ? 'Remove from Watch Later' : 'Add to Watch Later'}
-        >
-          {watchLater ? '✓' : '+'}
-        </button>
-      </div>
+          <button
+            className={`${styles.watchLaterBtn} ${watchLater ? styles.active : ''}`}
+            onClick={async (e) => {
+              e.stopPropagation(); // VERY IMPORTANT
+              e.preventDefault();
+
+              if (!watchLater) {
+                await addWatchLater({
+                  id,
+                  title,
+                  rating,
+                  voters,
+                  desc,
+                  imageSrc,
+                  imageAlt,
+                });
+              } else {
+                await removeWatchLater(id);
+              }
+              setWatchLater(!watchLater);
+            }}
+          >
+            {watchLater ? '✓' : '+'}
+          </button>
+        </div>
 
       <div className={styles.info}>
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.ratingRow}>
           <Stars total={5} filled={fullStars} half={hasHalf} />
-          <span className={styles.ratingNum}>{rating.toFixed(1)}</span>
-          <span className={styles.voters}>({formatVoters(voters)})</span>
+          <span className={styles.ratingNum}>{rating ? rating.toFixed(1) : "N/A"}</span>
+          <span className={styles.voters}>({voters ? formatVoters(voters) : 0})</span>
         </div>
       </div>
-    </div>
+  </div>
   );
 }
 

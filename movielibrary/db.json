@@ -1,21 +1,49 @@
 {
-  "watchlist": [],
+  "watchlist": [
+    143010,
+    24428
+  ],
   "collections": [
     {
       "id": "uuid-1",
-      "name": "Friday Night Chills",
+      "name": "Peak Cinema",
       "movieIds": [
-        550,
-        120
+        24428
+      ]
+    },
+    {
+      "id": "uuid-2",
+      "name": "Not so Peak Cinema",
+      "movieIds": [
+        143010,
+        1419406
       ]
     }
   ],
   "personalData": [
     {
-      "tmdbId": 550,
+      "id": "06cc9003-48cc-447b-8703-f8c2a6ba8a5c",
+      "tmdbId": 10,
+      "rating": 1,
+      "review": "Mid"
+    },
+    {
+      "id": "fe4c7903-86d5-46a0-bb4b-6ec3409292ca",
+      "tmdbId": 143010,
+      "rating": 1,
+      "review": "Nahhhhhh"
+    },
+    {
+      "id": "fe4c7903-86d5-46a0-bb4b-6efjnafc342ca",
+      "tmdbId": 24428,
       "rating": 5,
-      "review": "Masterpiece!",
-      "id": "54a6"
+      "review": "Goated"
+    },
+    {
+      "id": "a83286f4-526f-41d8-a46e-22cc44b0cbde",
+      "tmdbId": 1419406,
+      "rating": 3,
+      "review": "IDK about this movie"
     }
   ]
 }
