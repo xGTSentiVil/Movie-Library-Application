@@ -37,7 +37,7 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
           imageSrc={
             movie.poster_path
               ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              : "/Images/no-image.png" // fallback image
+              : "/Images/no-image.png"
           }
         />
       ))}

@@ -1,21 +1,18 @@
 {
   "watchlist": [
-    143010,
-    24428
+    299536,
+    1003596
   ],
   "collections": [
     {
       "id": "uuid-1",
       "name": "Peak Cinema",
-      "movieIds": [
-        24428
-      ]
+      "movieIds": []
     },
     {
       "id": "uuid-2",
       "name": "Not so Peak Cinema",
       "movieIds": [
-        143010,
         1419406
       ]
     }

@@ -43,23 +43,16 @@ async function getMovie(id: number) {
 
 export default async function MyLibrary() {
   const data = await getLibraryData();
-
   const { watchlist, collections, personalData } = data;
 
-  // -----------------------
   // WATCHLIST
-  // -----------------------
-
   const watchlistMovies = await Promise.all(
     watchlist.map((id) => getMovie(id))
   );
 
   const validWatchlist = watchlistMovies.filter(Boolean);
 
-  // -----------------------
   // COLLECTIONS
-  // -----------------------
-
   const collectionData = await Promise.all(
     collections.map(async (collection) => {
       const movies = await Promise.all(
@@ -91,10 +84,6 @@ export default async function MyLibrary() {
     (c) => c.movies.length > 0
   );
 
-  // -----------------------
-  // RENDER
-  // -----------------------
-
   return (
     <div style={{ padding: "2rem" }}>
       <h1>My Library</h1>
@@ -113,8 +102,8 @@ export default async function MyLibrary() {
                 voters={movie.vote_count}
                 desc={movie.overview}
                 imageSrc={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                imageAlt={movie.title}
-              />
+                mode="remove"
+                />
             ))}
           </div>
         </>
@@ -123,11 +112,11 @@ export default async function MyLibrary() {
       {/* COLLECTIONS */}
       {validCollections.map((collection) => (
         <div key={collection.id} style={{ marginTop: "3rem" }}>
-            <h2>{collection.name}</h2>
+          <h2>{collection.name}</h2>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
             {collection.movies.map((movie) => (
-                <div key={`${collection.id}-${movie.id}`}>
+              <div key={`${collection.id}-${movie.id}`}>
                 <MovieCard
                     id={String(movie.id)}
                     title={movie.title}
@@ -135,25 +124,27 @@ export default async function MyLibrary() {
                     voters={movie.vote_count}
                     desc={movie.overview}
                     imageSrc={
-                    movie.poster_path
+                        movie.poster_path
                         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                         : "/no-image.png"
                     }
                     imageAlt={movie.title}
-                />
+                    mode="remove"
+                    collectionId={collection.id}
+                    />
 
                 {movie.personalRating && (
-                    <div style={{ marginTop: "0.5rem" }}>
+                  <div style={{ marginTop: "0.5rem" }}>
                     ⭐ Your Rating: {movie.personalRating}
                     <br />
                     📝 {movie.personalReview}
-                    </div>
+                  </div>
                 )}
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </div>
-        ))}
+      ))}
 
       {validWatchlist.length === 0 &&
         validCollections.length === 0 && (
@@ -162,37 +153,3 @@ export default async function MyLibrary() {
     </div>
   );
 }
-
-
-// export default async function MyLibrary() {
-
-//   return (
-//     <div>
-//       <h1>My Library</h1>
-//     </div>
-//     );
-// }
-
-
-
-
-
-
-
-
-// export default async function myLibrary(){
-//     let data = null
-//         const res = await fetch("http://localhost:3000/api/mylibrary", {
-//             cache: "no-store",
-//         });
-//         data = await res.json()
-//         console.log(data)
-//     return(        
-//         <h1>My Library</h1>
-//     );
-// }
-
-
-
-
-
