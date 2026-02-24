@@ -46,24 +46,3 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
 
 
 }
-
-
-
-
-
-  // return (
-  //   <main className={MobiePageStyle.movieCardsPage}>
-  //     <MovieCard
-  //       title="The Shawshank Redemption"
-  //       rating={9.1}
-  //       voters={2800000}
-  //       imageSrc="/Images/ShawshankRedemption.jpg"
-  //     />
-  //     <MovieCard
-  //       title="12 Angry Men"
-  //       rating={9.5}
-  //       voters={28000000}
-  //       imageSrc="/Images/TAM.jpg"
-  //     />
-  //   </main>
-  // );

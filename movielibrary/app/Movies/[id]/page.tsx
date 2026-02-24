@@ -1,57 +1,90 @@
-import AddMovieCard from "@/app/components/AddMovieCard";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import AddOverlayWrapper from "./AddOverlayWrapper";
+import styles from "./SpecMoviePage.module.css";
 
-type MoviePageProps = {
-  params: Promise<{
-    id: string;
-  }>;
-};
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
 
-export default async function specMoviePage({ params }: MoviePageProps) {
+const TMDB_BASE = "https://api.themoviedb.org/3";
+const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+
+console.log("API KEY:", process.env.TMDB_API_KEY);
+
+export default async function MoviePage({ params }: PageProps) {
   const { id } = await params;
-
-  console.log("Movie ID:", id);
-
-  let data = null;
-  let trailData = null;
-
   const apiKey = process.env.TMDB_API_KEY;
-  if(!apiKey){
-    console.error("API KEY NOT FOUND");
-  }
-  else{
-    console.log(`API IS PRESENT ${apiKey}`)
-  }
+  if (!apiKey) return notFound();
 
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/movies/${id}`,
-      { cache: "no-store" }
-    );
-
-    const trailRes = await fetch(
-      `http://localhost:3000/api/movies/${id}/videos`,
-      { cache: "no-store" }
-    );
-
-    if (!trailRes.ok) {
-        const errorText = await trailRes.text();
-        console.error("Video API error:", errorText);
-        trailData = { results: [] }; // fallback
-    } else {
-        trailData = await trailRes.json();
-    }
-    data = await response.json();
-    console.log(data)
-    console.log(trailData)
-  } catch (error) {
-    console.error("Something went wrong:", error);
-  }
-    return (
-        <div>
-            <p>This is specific Page website</p>
-            <AddMovieCard tmdbId = {Number(id)}></AddMovieCard>
-        </div>
+  const movieRes = await fetch(
+    `${TMDB_BASE}/movie/${id}?api_key=${apiKey}`,
+    { cache: "no-store" }
+  );
+  const videoRes = await fetch(
+    `${TMDB_BASE}/movie/${id}/videos?api_key=${apiKey}`,
+    { cache: "no-store" }
   );
 
+  if (!movieRes.ok) return notFound();
 
+  const movie = await movieRes.json();
+  const videos = await videoRes.json();
+
+  const trailer = videos.results.find(
+    (v: any) => v.type === "Trailer" && v.site === "YouTube"
+  );
+
+  return (
+    <div className={styles.page}>
+
+      {/* TOP SECTION */}
+      <div className={styles.topBar}>
+
+        {/* Home Button */}
+        <div className={styles.homeBox}>
+          <Link href="/" className={styles.homeLink}>Home</Link>
+        </div>
+
+        {/* Add Button */}
+        <AddOverlayWrapper tmdbId={Number(id)} />
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className={styles.mainContent}>
+
+        {/* Poster */}
+        <div className={styles.posterBox}>
+          <img
+            src={`${IMAGE_BASE}${movie.poster_path}`}
+            alt={movie.title}
+            width={300}
+            className={styles.posterImg}
+          />
+        </div>
+
+        {/* Trailer */}
+        <div className={styles.trailerBox}>
+          {trailer ? (
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${trailer.key}`}
+              allowFullScreen
+              className={styles.trailerFrame}
+            />
+          ) : (
+            <p className={styles.noTrailer}>No Trailer Available</p>
+          )}
+        </div>
+      </div>
+
+      {/* BOTTOM SECTION */}
+      <div className={styles.bottomSection}>
+        <h1 className={styles.title}>{movie.title}</h1>
+        <p className={styles.rating}><strong>Rating:</strong> {movie.vote_average}</p>
+        <p className={styles.overview}>{movie.overview}</p>
+      </div>
+    </div>
+  );
 }

@@ -15,6 +15,11 @@
       "movieIds": [
         1419406
       ]
+    },
+    {
+      "id": "1588ba72-c9d0-4312-83b5-60dc0735ef8e",
+      "name": "Avengers",
+      "movieIds": []
     }
   ],
   "personalData": [
@@ -41,6 +46,12 @@
       "tmdbId": 1419406,
       "rating": 3,
       "review": "IDK about this movie"
+    },
+    {
+      "id": "1de68214-13a7-4ef2-a30c-a681878a48c9",
+      "tmdbId": 299534,
+      "rating": 4,
+      "review": "Okay"
     }
   ]
 }

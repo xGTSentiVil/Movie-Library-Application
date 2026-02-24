@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #080a0f;
+  --surface: #0e1117;
+  --border: rgba(255, 255, 255, 0.07);
+  --accent: #e8b84b;
+  --accent-dim: rgba(232, 184, 75, 0.12);
+  --text: #e8eaf0;
+  --text-muted: #6b7280;
+}
+
+.page {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2.5rem 3rem;
+  font-family: 'DM Sans', sans-serif;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(232, 184, 75, 0.05), transparent);
+}
+
+/* TOP BAR */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.homeBox {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.65rem 1.4rem;
+  border-radius: 6px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.homeBox:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.homeLink {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* MAIN CONTENT */
+.mainContent {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  align-items: flex-start;
+}
+
+/* POSTER */
+.posterBox {
+  flex-shrink: 0;
+}
+
+.posterImg {
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* TRAILER */
+.trailerBox {
+  flex: 1;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trailerFrame {
+  border-radius: 10px;
+  border: none;
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+}
+
+.noTrailer {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+/* BOTTOM SECTION */
+.bottomSection {
+  margin-top: 3rem;
+  max-width: 860px;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  margin: 0 0 0.75rem 0;
+  line-height: 1;
+}
+
+.rating {
+  font-size: 0.875rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 1.25rem 0;
+}
+
+.rating strong {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.overview {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #9da5b4;
+  font-weight: 300;
+  margin: 0;
+}

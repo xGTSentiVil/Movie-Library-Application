@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import styles from "./AddMovieCard.module.css";
 
 interface Collection {
@@ -10,36 +9,50 @@ interface Collection {
   movieIds: number[];
 }
 
-interface AddMovieCardProps {
+interface Props {
   tmdbId: number;
+  onClose?: () => void;
 }
 
-export default function AddMovieCard({ tmdbId }: AddMovieCardProps) {
+export default function AddMovieCard({ tmdbId, onClose }: Props) {
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [selectedCollection, setSelectedCollection] = useState<string>("");
-  const [rating, setRating] = useState<number>(0);
+  const [selectedCollection, setSelectedCollection] = useState("");
+  const [newCollectionName, setNewCollectionName] = useState("");
+  const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
 
-  // Fetch collections
   useEffect(() => {
     fetch("/api/collections")
       .then((res) => res.json())
-      .then((data) => setCollections(data));
+      .then(setCollections);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 1️⃣ Add movie to collection
+
+    let collectionId = selectedCollection;
+
+    // Create new collection if entered
+    if (newCollectionName.trim()) {
+      const res = await fetch("/api/collections/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newCollectionName }),
+      });
+
+      const newCollection = await res.json();
+      collectionId = newCollection.id;
+    }
+
     await fetch("/api/collections/add-movie", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        collectionId: selectedCollection,
+        collectionId,
         tmdbId,
       }),
     });
 
-    // 2️⃣ Save personal review
     await fetch("/api/personal-data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -51,48 +64,54 @@ export default function AddMovieCard({ tmdbId }: AddMovieCardProps) {
     });
 
     alert("Movie added successfully!");
+
+    if (onClose) onClose();
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.card}>
-        <h3 className={styles.title}>Add Movie</h3>
+      <h3>Add Movie</h3>
 
-        <label className={styles.label}>Collection</label>
-        <select
-            className={styles.select}
-            value={selectedCollection}
-            onChange={(e) => setSelectedCollection(e.target.value)}
-            required
-        >
-            <option value="">Select Collection</option>
-            {collections.map((collection) => (
-            <option key={collection.id} value={collection.id}>
-                {collection.name}
-            </option>
-            ))}
-        </select>
+      <label>Select Collection</label>
+      <select
+        value={selectedCollection}
+        onChange={(e) => setSelectedCollection(e.target.value)}
+      >
+        <option value="">Select</option>
+        {collections.map((c) => (
+          <option key={c.id} value={c.id}>
+            {c.name}
+          </option>
+        ))}
+      </select>
 
-        <label className={styles.label}>Rating</label>
-        <input
-            className={styles.input}
-            type="number"
-            min="1"
-            max="5"
-            value={rating}
-            onChange={(e) => setRating(Number(e.target.value))}
-            required
-        />
+      <p style={{ textAlign: "center" }}>— OR —</p>
 
-        <label className={styles.label}>Remark</label>
-        <textarea
-            className={styles.textarea}
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
-        />
+      <label>Create New Collection</label>
+      <input
+        type="text"
+        value={newCollectionName}
+        onChange={(e) => setNewCollectionName(e.target.value)}
+        placeholder="New Collection Name"
+      />
 
-        <button type="submit" className={styles.button}>
-            Add to Collection
-        </button>
-    </form>    
-    );
+      <label>Rating (1-5)</label>
+      <input
+        type="number"
+        min="1"
+        max="5"
+        value={rating}
+        onChange={(e) => setRating(Number(e.target.value))}
+        required
+      />
+
+      <label>Review</label>
+      <textarea
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
+      />
+
+      <button type="submit">Add to Collection</button>
+    </form>
+  );
 }
