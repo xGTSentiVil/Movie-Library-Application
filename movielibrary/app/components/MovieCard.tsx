@@ -54,12 +54,10 @@ export default function MovieCard({
 
   const handleRemove = async () => {
     if (collectionId) {
-      // Removing from collection
       await fetch(`/api/collections/${collectionId}/${id}`, {
         method: "DELETE",
       });
     } else {
-      // Removing from watchlist
       await fetch(`/api/watchlist/${id}`, {
         method: "DELETE",
       });

@@ -38,22 +38,17 @@ export default async function MoviePage({ params }: PageProps) {
   return (
     <div className={styles.page}>
 
-      {/* TOP SECTION */}
       <div className={styles.topBar}>
 
-        {/* Home Button */}
         <div className={styles.homeBox}>
           <Link href="/" className={styles.homeLink}>Home</Link>
         </div>
 
-        {/* Add Button */}
         <AddOverlayWrapper tmdbId={Number(id)} />
       </div>
 
-      {/* MAIN CONTENT */}
       <div className={styles.mainContent}>
 
-        {/* Poster */}
         <div className={styles.posterBox}>
           <img
             src={`${IMAGE_BASE}${movie.poster_path}`}
@@ -63,7 +58,6 @@ export default async function MoviePage({ params }: PageProps) {
           />
         </div>
 
-        {/* Trailer */}
         <div className={styles.trailerBox}>
           {trailer ? (
             <iframe
@@ -79,7 +73,6 @@ export default async function MoviePage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* BOTTOM SECTION */}
       <div className={styles.bottomSection}>
         <h1 className={styles.title}>{movie.title}</h1>
         <p className={styles.rating}><strong>Rating:</strong> {movie.vote_average}</p>

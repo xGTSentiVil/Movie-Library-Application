@@ -45,14 +45,13 @@ export default async function MyLibrary() {
   const data = await getLibraryData();
   const { watchlist, collections, personalData } = data;
 
-  // WATCHLIST
   const watchlistMovies = await Promise.all(
     watchlist.map((id) => getMovie(id))
   );
 
   const validWatchlist = watchlistMovies.filter(Boolean);
+  //const validWatchlist = watchlistMovies;
 
-  // COLLECTIONS
   const collectionData = await Promise.all(
     collections.map(async (collection) => {
       const movies = await Promise.all(
@@ -88,7 +87,6 @@ export default async function MyLibrary() {
     <div style={{ padding: "2rem" }}>
       <h1>My Library</h1>
 
-      {/* WATCHLIST */}
       {validWatchlist.length > 0 && (
         <>
           <h2>Watchlist</h2>
@@ -109,7 +107,6 @@ export default async function MyLibrary() {
         </>
       )}
 
-      {/* COLLECTIONS */}
       {validCollections.map((collection) => (
         <div key={collection.id} style={{ marginTop: "3rem" }}>
           <h2>{collection.name}</h2>

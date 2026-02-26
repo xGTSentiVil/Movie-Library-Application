@@ -20,7 +20,6 @@ export async function POST(req: Request) {
 
     const movieId = Number(tmdbId);
 
-    // Prevent duplicates
     if (!data.watchlist.includes(movieId)) {
       data.watchlist.push(movieId);
     }

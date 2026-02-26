@@ -25,7 +25,6 @@ export async function POST(req: NextRequest) {
 
   const movieId = Number(tmdbId);
 
-  // ✅ Prevent duplicates
   if (!collection.movieIds.includes(movieId)) {
     collection.movieIds.push(movieId);
   }

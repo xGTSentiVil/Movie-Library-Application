@@ -1,14 +1,14 @@
 .mainContainer {
-  position: relative;   /*Allows absolutely/fixed positioned children to align relative to this container.*/
+  position: relative;   
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
 .backgroundWrapper {
-  z-index: -2;         /*Pushes this div behind everything else.*/
-  position: fixed;     /*The image stays fixed to the screen.It does NOT scroll with content.It stays in the background permanently.*/
-  inset: 0;            /*Equivalent to: top: 0; right: 0;bottom: 0;left: 0;This makes the div fill the entire screen.*/
+  z-index: -2;         
+  position: fixed;     
+  inset: 0;            
 }
 
 .myLib {

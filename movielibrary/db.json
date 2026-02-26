@@ -1,13 +1,18 @@
 {
   "watchlist": [
-    299536,
-    1003596
+    335787,
+    557,
+    299534,
+    1128559
   ],
   "collections": [
     {
       "id": "uuid-1",
       "name": "Peak Cinema",
-      "movieIds": []
+      "movieIds": [
+        106,
+        1054867
+      ]
     },
     {
       "id": "uuid-2",
@@ -19,7 +24,27 @@
     {
       "id": "1588ba72-c9d0-4312-83b5-60dc0735ef8e",
       "name": "Avengers",
-      "movieIds": []
+      "movieIds": [
+        24428,
+        299536,
+        299534,
+        1003596,
+        99861
+      ]
+    },
+    {
+      "id": "ab0cb74f-6375-48e5-84ad-5b7fd8b5b95f",
+      "name": "Won't Watch Again",
+      "movieIds": [
+        143010
+      ]
+    },
+    {
+      "id": "4231b9e0-aa5f-46b7-af64-9370bb01eea4",
+      "name": "Good Films",
+      "movieIds": [
+        1124
+      ]
     }
   ],
   "personalData": [
@@ -52,6 +77,60 @@
       "tmdbId": 299534,
       "rating": 4,
       "review": "Okay"
+    },
+    {
+      "id": "a3151f05-6762-477a-805f-f23ed0ef6c67",
+      "tmdbId": 106,
+      "rating": 4,
+      "review": "Yeahhhh"
+    },
+    {
+      "id": "950c1968-482f-4ade-b8a6-c3af640c892e",
+      "tmdbId": 1054867,
+      "rating": 4,
+      "review": "It's a good film"
+    },
+    {
+      "id": "871b4161-b760-47d1-9240-6944523fcbb6",
+      "tmdbId": 143010,
+      "rating": 1,
+      "review": "BAD"
+    },
+    {
+      "id": "ff3f16ff-5b63-4a8c-b06d-1b67fc402774",
+      "tmdbId": 1124,
+      "rating": 3,
+      "review": "Good Twist"
+    },
+    {
+      "id": "08de1aa5-ef63-4b69-98db-7b42f749139b",
+      "tmdbId": 24428,
+      "rating": 4,
+      "review": "Good"
+    },
+    {
+      "id": "9d7e68d4-8c48-4ad1-8ff5-8dff930df35b",
+      "tmdbId": 299536,
+      "rating": 4,
+      "review": ""
+    },
+    {
+      "id": "02470555-33ab-4aca-9719-330d6630e77c",
+      "tmdbId": 299534,
+      "rating": 4,
+      "review": ""
+    },
+    {
+      "id": "2511893d-5ed4-47a4-952e-6a7b7627201f",
+      "tmdbId": 1003596,
+      "rating": 5,
+      "review": ""
+    },
+    {
+      "id": "aea3cd7e-b6e8-488f-8a7c-47d8550298df",
+      "tmdbId": 99861,
+      "rating": 4,
+      "review": ""
     }
   ]
 }

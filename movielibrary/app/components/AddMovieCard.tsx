@@ -32,7 +32,6 @@ export default function AddMovieCard({ tmdbId, onClose }: Props) {
 
     let collectionId = selectedCollection;
 
-    // Create new collection if entered
     if (newCollectionName.trim()) {
       const res = await fetch("/api/collections/create", {
         method: "POST",
@@ -70,10 +69,11 @@ export default function AddMovieCard({ tmdbId, onClose }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className={styles.card}>
-      <h3>Add Movie</h3>
+      <h3 className={styles.title}>Add Movie</h3>
 
-      <label>Select Collection</label>
+      <label className={styles.label}>Select Collection</label>
       <select
+        className={styles.select}
         value={selectedCollection}
         onChange={(e) => setSelectedCollection(e.target.value)}
       >
@@ -85,33 +85,41 @@ export default function AddMovieCard({ tmdbId, onClose }: Props) {
         ))}
       </select>
 
-      <p style={{ textAlign: "center" }}>— OR —</p>
+      <p className={styles.or}>— OR —</p>
 
-      <label>Create New Collection</label>
+      <label className={styles.label}>Create New Collection</label>
       <input
+        className={styles.input}
         type="text"
         value={newCollectionName}
         onChange={(e) => setNewCollectionName(e.target.value)}
         placeholder="New Collection Name"
       />
 
-      <label>Rating (1-5)</label>
-      <input
-        type="number"
-        min="1"
-        max="5"
-        value={rating}
-        onChange={(e) => setRating(Number(e.target.value))}
-        required
-      />
+      <div className={styles.row}>
+        <div className={styles.rowItem}>
+          <label className={styles.label}>Rating (1-5)</label>
+          <input
+            className={styles.input}
+            type="number"
+            min="1"
+            max="5"
+            value={rating}
+            onChange={(e) => setRating(Number(e.target.value))}
+            required
+          />
+        </div>
+        <div className={styles.rowItem}>
+          <label className={styles.label}>Review</label>
+          <textarea
+            className={styles.textarea}
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+          />
+        </div>
+      </div>
 
-      <label>Review</label>
-      <textarea
-        value={review}
-        onChange={(e) => setReview(e.target.value)}
-      />
-
-      <button type="submit">Add to Collection</button>
+      <button type="submit" className={styles.button}>Add to Collection</button>
     </form>
   );
 }

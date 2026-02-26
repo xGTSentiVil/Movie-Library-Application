@@ -1,7 +1,7 @@
 "use client";
 
-import Image from 'next/image';  //Next.js optimized Image component - Supports lazy loading.
-import styles from './Home.module.css';  //Scope these styles locally to the component that imports them - The file must contain .module. in its name for Next.js to treat it as a CSS Module.
+import Image from 'next/image';  
+import styles from './Home.module.css'; 
 
 import { useState,useEffect } from "react";
 
@@ -25,11 +25,11 @@ export default function Home() {
     <main className={styles.mainContainer}>  
       <div className={styles.backgroundWrapper}>  
         <Image
-          src="/Images/MovieWallPaper2.jpg"  //This image must be inside your public/Images folder.
+          src="/Images/MovieWallPaper2.jpg"  
           alt="Background Image"
-          fill                            // Make this image fill its parent container.
-          style={{ objectFit: 'cover' }} // The image fills the container-Maintains aspect ratio-Crops overflow if necessary
-          priority                       //Load this image immediately
+          fill                            
+          style={{ objectFit: 'cover' }} 
+          priority                       
         />
       </div>      
 
